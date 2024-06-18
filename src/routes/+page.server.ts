@@ -1,7 +1,7 @@
 import type { PageServerLoad } from "./$types";
 import prisma from '$lib/prisma'
 
-export const load = (async() => {
+export const load = (async({request}) => {
     const blogs = await prisma.post.findMany({
         include: {
             author: true,
@@ -21,6 +21,7 @@ export const load = (async() => {
     return {
         originBlogs: blogs,
         blogs: blog,
-        highlightBlog
+        highlightBlog,
+        currentUrl: encodeURIComponent(request.url)
     }
 }) satisfies PageServerLoad
