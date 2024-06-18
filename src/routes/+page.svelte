@@ -13,7 +13,6 @@
 	const viewport = useViewportSize();
 	$: ({ width } = $viewport);
 	$: isMobileSize = width <= 640;
-	console.log("data", data)
 
 	let decodedUrl = '/';
 	if (typeof window !== 'undefined') {
