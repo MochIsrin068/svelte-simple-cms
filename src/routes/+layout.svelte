@@ -8,8 +8,6 @@
 
 	export let data;
 
-	$: console.log('data lay', data);
-
 	$: theme =
 		typeof window !== 'undefined'
 			? window?.localStorage?.getItem('themeSchema') || 'light'
@@ -34,7 +32,7 @@
 	});
 	$: ({ classes, getStyles } = useStyles());
 
-	const isNotEligbleShowMainLayout =
+	$: isNotEligbleShowMainLayout =
 		data.pathname.includes('/auth') || data.pathname.includes('/admin');
 </script>
 
