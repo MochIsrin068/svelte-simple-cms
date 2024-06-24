@@ -52,7 +52,7 @@
 	href={`/blog/${convertToPermalink(data.highlightBlog.title)} ${data.highlightBlog.id}`}
 >
 	<div class="flex items-center gap-4 text-xs lg:text-sm">
-		<span>{formatDate(data.highlightBlog.createdAt)}</span>
+		<span>{formatDate(`${data.highlightBlog.createdAt}`)}</span>
 		<div class="w-2 h-2 bg-red-700 rounded-full"></div>
 		<span class="gap-2">
 			{#each data.highlightBlog.categories as category (category.id)}
@@ -98,7 +98,7 @@
 					class="flex items-center gap-2 absolute top-3 right-3 bg-slate-50 px-2 py-1 rounded-lg shadow-sm text-sm"
 				>
 					<Icon solid src={Calendar} class="w-4 h-4" />
-					<span>{formatDate(blog.createdAt)}</span>
+					<span>{formatDate(`${blog.createdAt}`)}</span>
 				</div>
 				<div class="flex flex-col gap-3 p-2 lg:p-4">
 					<h2 class="font-bold text-xl lg:text-3xl">{blog.title}</h2>

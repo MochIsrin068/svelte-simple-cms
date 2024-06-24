@@ -41,7 +41,7 @@
 			required
 		/>
         <a
-            href="/admin/blog"
+            href="/admin"
 			class="mt-3"
         >
             <Button class="w-full" size="lg">Login</Button>
