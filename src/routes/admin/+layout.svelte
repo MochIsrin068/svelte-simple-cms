@@ -1,4 +1,6 @@
 <script>
+	import { goto, preloadData, pushState } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { cssvariable, useViewportSize } from '@svelteuidev/composables';
 	import {
 		AppShell,
@@ -10,7 +12,8 @@
 		Menu,
 		Divider,
 		createStyles,
-		Seo
+		Seo,
+		key
 	} from '@svelteuidev/core';
 	import {
 		ChevronLeft,
@@ -22,7 +25,7 @@
 		Backpack,
 		PaperPlane
 	} from 'radix-icons-svelte';
-	import { fade, fly, slide } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
 	$: opened = true;
 
@@ -49,7 +52,39 @@
 	});
 	$: ({ classes, getStyles } = useStyles());
 
-    export let data
+	export let data;
+
+	// @ts-ignore
+	$: currentState = $page.state.selected;
+
+	$: currentPath = currentState
+		? currentState.pathname === '/admin'
+			? 'home'
+			: currentState.pathname.split('/')[2]
+		: data.isActivePageKey;
+
+	const menus = [
+		{
+			key: 'home',
+			label: 'Home',
+			url: '/admin'
+		},
+		{
+			key: 'blog',
+			label: 'Blog',
+			url: '/admin/blog'
+		},
+		{
+			key: 'category',
+			label: 'Category',
+			url: '/admin/category'
+		},
+		{
+			key: 'user-access',
+			label: 'User Access',
+			url: '/admin/user-access'
+		}
+	];
 </script>
 
 <Seo
@@ -94,38 +129,46 @@
 			<!-- <ShellSection grow>Grow section</ShellSection> -->
 			{#if opened}
 				<div class="w-full h-full shadow-xl lg:px-4 py-8 flex flex-col gap-5" transition:fade>
-					<a href="/admin">
-						<Button variant="subtle" class="w-full flex justify-start text-base" color="#dadada">
-							<Home slot="leftIcon" size={16} />
-							{#if !isMobileSize}
-								Home
-							{/if}
-						</Button>
-					</a>
-					<a href="/admin/blog">
-						<Button variant="subtle" class="w-full flex justify-start text-base" color="#dadada">
-							<PaperPlane slot="leftIcon" size={16} />
-							{#if !isMobileSize}
-								Blog
-							{/if}
-						</Button>
-					</a>
-					<a href="/admin/category">
-						<Button variant="subtle" class="w-full flex justify-start text-base" color="#dadada">
-							<Backpack slot="leftIcon" size={16} />
-							{#if !isMobileSize}
-								Category
-							{/if}
-						</Button>
-					</a>
-					<a href="/admin/user-access">
-						<Button variant="subtle" class="w-full flex justify-start text-base" color="#dadada">
-							<Person slot="leftIcon" size={16} />
-							{#if !isMobileSize}
-								User Access
-							{/if}
-						</Button>
-					</a>
+					{#each menus as menu (menu.key)}
+						<a
+							href={menu.url}
+							on:click={async (e) => {
+								e.preventDefault();
+								const { href } = e.currentTarget;
+								const result = await preloadData(href);
+
+								if (result.type === 'loaded' && result.status === 200) {
+									pushState(href, { selected: result.data });
+									goto(href, {
+										state: {
+											selected: result.data
+										}
+									});
+								} else {
+									goto(href);
+								}
+							}}
+						>
+							<Button
+								variant={currentPath === menu.key ? 'filled' : 'subtle'}
+								class="w-full flex justify-start text-sm gap-2"
+								color={currentPath === menu.key ? '#1f293d' : '#dadada'}
+							>
+								{#if menu.key === 'home'}
+									<Home slot="leftIcon" size={14} />
+								{:else if menu.key === 'blog'}
+									<PaperPlane slot="leftIcon" size={14} />
+								{:else if menu.key === 'category'}
+									<Backpack slot="leftIcon" size={14} />
+								{:else}
+									<Person slot="leftIcon" size={14} />
+								{/if}
+								{#if !isMobileSize}
+									{menu.label}
+								{/if}
+							</Button>
+						</a>
+					{/each}
 				</div>
 			{/if}
 		</Navbar>
@@ -153,15 +196,15 @@
 					</div>
 				{/if}
 			</ActionIcon>
-			<h1 class="font-bold text-black text-2xl">{'<Blog.dev />'}</h1>
+			<h1 class="font-bold text-slate-700 text-xl">{'{ <Blog.dev /> }'}</h1>
 
 			<Menu>
 				<ActionIcon variant="white" class="rounded-full bg-slate-200" slot="control">
 					<Person />
 				</ActionIcon>
-                <a href="/admin/profile">
-                    <Menu.Item icon={Gear}>Profile</Menu.Item>
-                </a>
+				<a href="/admin/profile">
+					<Menu.Item icon={Gear}>Profile</Menu.Item>
+				</a>
 
 				<Divider />
 				<a href="/auth/login">
