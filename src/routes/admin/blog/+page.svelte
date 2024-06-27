@@ -1,64 +1,10 @@
-<script>
-	import { Badge, Button, Image, Menu, ThemeIcon } from '@svelteuidev/core';
-	import CardItemBlog from '../components/_CardItemBlog.svelte';
-	import { DotsVertical, EyeOpen, Pencil1, Pencil2, Trash } from 'radix-icons-svelte';
-	const blogs = [
-		{
-			title: 'How connect postgres sql',
-			image:
-				'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80',
-			status: 'post',
-			summary:
-				'With Portugal Porto Adventures you can explore more of the beautiful portuguese cities, by walking on food, meeting the locals and eat excellent food and wine',
-			onDelete: () => {},
-			onPreview: () => {},
-			onEdit: () => {}
-		},
-		{
-			title: 'How connect postgres sql',
-			image:
-				'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80',
-			status: 'post',
-			summary:
-				'With Portugal Porto Adventures you can explore more of the beautiful portuguese cities, by walking on food, meeting the locals and eat excellent food and wine',
-			onDelete: () => {},
-			onPreview: () => {},
-			onEdit: () => {}
-		},
-		{
-			title: 'How connect postgres sql',
-			image:
-				'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80',
-			status: 'draft',
-			summary:
-				'With Portugal Porto Adventures you can explore more of the beautiful portuguese cities, by walking on food, meeting the locals and eat excellent food and wine',
-			onDelete: () => {},
-			onPreview: () => {},
-			onEdit: () => {}
-		},
-		{
-			title: 'How connect postgres sql',
-			image:
-				'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80',
-			status: 'draft',
-			summary:
-				'With Portugal Porto Adventures you can explore more of the beautiful portuguese cities, by walking on food, meeting the locals and eat excellent food and wine',
-			onDelete: () => {},
-			onPreview: () => {},
-			onEdit: () => {}
-		},
-		{
-			title: 'How connect postgres sql',
-			image:
-				'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3540&q=80',
-			status: 'draft',
-			summary:
-				'With Portugal Porto Adventures you can explore more of the beautiful portuguese cities, by walking on food, meeting the locals and eat excellent food and wine',
-			onDelete: () => {},
-			onPreview: () => {},
-			onEdit: () => {}
-		}
-	];
+<script lang="ts">
+	import { extractTextWithoutImg } from '$lib/content';
+	import { formatDate } from '$lib/helper/date';
+	import { Badge, Button, Menu, ThemeIcon } from '@svelteuidev/core';
+	import { DotsVertical, EyeOpen, Pencil2, Trash } from 'radix-icons-svelte';
+
+	export let data;
 </script>
 
 <div class="flex justify-between mb-4">
@@ -71,18 +17,22 @@
 			<th>No.</th>
 			<th>Title</th>
 			<th>Summary</th>
+			<th>Last Updated</th>
 			<th>Status</th>
 			<th>Action</th>
 		</thead>
 		<tbody>
-			{#each blogs as blog, index (index)}
+			{#each data.posts as post, index (index)}
 				<tr>
 					<td class="text-center">{index + 1}</td>
-					<td>{blog.title}</td>
-					<td><p class="line-clamp-3">{blog.summary}</p></td>
+					<td>{post.title}</td>
+					<td><p class="line-clamp-3">
+						{@html typeof window !== "undefined" ? extractTextWithoutImg(post.content) : post.content}
+					</p></td>
+					<td><p class="line-clamp-3">{formatDate(`${post.updatedAt}`)}</p></td>
 					<td class="text-center">
-						<Badge color={blog.status === 'draft' ? 'red' : 'green'} variant="filled" size="xs">
-							{blog.status}
+						<Badge color={!post.published ? 'red' : 'green'} variant="filled" size="xs">
+							{post.published ? "Pubished" : "Draft"}
 						</Badge>
 					</td>
 					<td class="text-center">
@@ -108,12 +58,6 @@
 		<Button variant="outline" size="xs" compact>Next</Button>
 	</div>
 </div>
-
-<!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-	{#each blogs as blog, index (index)}
-		<CardItemBlog data={{ ...blog }} />
-	{/each}
-</div> -->
 
 <style>
 	table {

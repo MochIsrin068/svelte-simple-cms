@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { goto, preloadData, pushState } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { cssvariable, useViewportSize } from '@svelteuidev/composables';

@@ -1,20 +1,7 @@
-<script>
+<script lang="ts">
 	import { Button, Menu, ThemeIcon } from '@svelteuidev/core';
 	import { DotsVertical, EyeOpen, Pencil2, Trash } from 'radix-icons-svelte';
-	const users = [
-		{
-			id: 1,
-			name: 'Rindev User',
-			email: 'rindevuser@rindev.com',
-			role: 'USER'
-		},
-		{
-			id: 2,
-			name: 'Rindev Admin',
-			email: 'rindevadmin@rindev.com',
-			role: 'ADMIN'
-		}
-	];
+	export let data;
 </script>
 
 <div class="flex justify-between mb-4">
@@ -31,7 +18,7 @@
 			<th>Action</th>
 		</thead>
 		<tbody>
-			{#each users as user, index (user.id)}
+			{#each data.users as user, index (user.id)}
 				<tr>
 					<td class="text-center">{index + 1}</td>
 					<td>{user.name}</td>

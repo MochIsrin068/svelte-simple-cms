@@ -1,20 +1,7 @@
-<script>
+<script lang="ts">
 	import { Button, Menu, ThemeIcon } from '@svelteuidev/core';
-	import { DotsVertical, EyeOpen, Pencil2, Trash } from 'radix-icons-svelte';
-	const categories = [
-		{
-			id: 1,
-			name: 'Article'
-		},
-		{
-			id: 2,
-			name: 'Post'
-		},
-		{
-			id: 3,
-			name: 'Sport'
-		}
-	];
+	import { DotsVertical, Pencil2, Trash } from 'radix-icons-svelte';
+	export let data;
 </script>
 
 <div class="flex justify-between mb-4">
@@ -29,7 +16,7 @@
 			<th>Action</th>
 		</thead>
 		<tbody>
-			{#each categories as category, index (category.id)}
+			{#each data.categories as category, index (category.id)}
 				<tr>
 					<td class="text-center">{index + 1}</td>
 					<td>{category.name}</td>

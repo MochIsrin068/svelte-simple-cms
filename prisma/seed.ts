@@ -100,6 +100,30 @@ async function main() {
 
   console.log({ rindevuser, rindevadmin })
 
+  // Deleteing Duplicated
+  // const updateCategory4 = await prisma.category.delete({
+  //   where: {
+  //     id: 4
+  //   }
+  // })
+  // const updateCategory5 =  await prisma.category.delete({
+  //   where: {
+  //     id: 5
+  //   }
+  // })
+  // const updateCategory6 = await prisma.category.delete({
+  //   where: {
+  //     id: 6
+  //   }
+  // })
+
+  // Sedding new Profiles
+  // await prisma.profile.create({
+  //   data: {
+  //     userId: 1,
+  //     bio: `An Frontend Frontend Engineer based in Indonesia. Have 5years experiences as Software Engineer, 1 year Backend, 4 years Frontend, and proficient in React, Next, React Native and Flutter.`
+  //   }
+  // })
 }
 
 main()

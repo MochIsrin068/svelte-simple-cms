@@ -1,5 +1,7 @@
 import type { PageServerLoad } from "./$types"
 import prisma from "$lib/prisma"
+
+export const prerender = 'auto';
 export const load = (async ({ params, request }) => {
     const slug = params.slug
     

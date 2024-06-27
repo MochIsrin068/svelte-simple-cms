@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     export let color = "bg-amber-300"
     export let title
     export let count = 0

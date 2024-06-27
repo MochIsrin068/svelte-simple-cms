@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { Badge, Button, Card, Group, Image, Text } from '@svelteuidev/core';
 	import { EyeOpen, Pencil1, Trash } from 'radix-icons-svelte';
 	import {STATUS_BLOG} from '$lib/constant/status'

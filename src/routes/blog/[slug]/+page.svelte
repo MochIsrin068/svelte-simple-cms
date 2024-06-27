@@ -7,6 +7,8 @@
 	import { fly } from 'svelte/transition';
 	import { Copy, EnvelopeOpen, InstagramLogo } from 'radix-icons-svelte';
 	import { extractTextWithoutImg } from '$lib/content';
+	import { onMount } from 'svelte';
+	import { useEffect } from '$lib/utils/use-effect';
 
 	export let data: PageData;
 
@@ -39,11 +41,30 @@
 		typeof window !== 'undefined'
 			? extractTextWithoutImg(data.detailBlog?.content || '')
 			: data.detailBlog?.content;
+
+	onMount(() => {
+		if(typeof window !== 'undefined'){
+			window.scrollTo({
+				top: 0,
+				behavior: "auto"
+			})
+		}
+	})
+
+	useEffect(() => {
+		if(typeof window !== 'undefined'){
+			window.scrollTo({
+				top: 0,
+				behavior: "auto"
+			})
+		}
+		return () => console.log("stopped effects")
+	}, () => [window])
 </script>
 
 <Seo
 	title={data.detailBlog?.title}
-	titleTemplate={`%t% | by ${data.detailBlog?.author.name} | ${formatDate(data.detailBlog?.createdAt)} | Blog.Dev | Rindev Labs`}
+	titleTemplate={`%t% | by ${data.detailBlog?.author.name} | ${formatDate(`${data.detailBlog?.createdAt}`)} | Blog.Dev | Rindev Labs`}
 	description={metaDescriptionValue}
 	canonical={currentUrl}
 	openGraph={{
@@ -83,7 +104,7 @@
 		{data.detailBlog?.title}
 	</h1>
 	<span class="text-gray-400"
-		>By <u>{data.detailBlog?.author.name}</u> on {formatDate(data.detailBlog?.createdAt)}</span
+		>By <u>{data.detailBlog?.author.name}</u> on {formatDate(`${data.detailBlog?.createdAt}`)}</span
 	>
 	<div class="relative">
 		<Image
