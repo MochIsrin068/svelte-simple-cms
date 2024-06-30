@@ -6,7 +6,7 @@
 
 <div class="flex flex-col gap-3">
 	<div class="p-3 bg-white w-full">
-		<h1 class="font-bold text-black text-3xl">Profile</h1>
+		<h1 class="font-bold text-black text-2xl">Profile</h1>
 	</div>
 
 	<div class="p-3 bg-white w-full flex flex-col gap-4">
@@ -29,7 +29,7 @@
 		</div>
 		<Divider />
 
-		<h1 class="font-bold text-black text-3xl">Bio :</h1>
+		<h1 class="font-bold text-black text-xl">Bio :</h1>
 		<p class="text-slate-950">
 			{data.profile?.bio}
 		</p>

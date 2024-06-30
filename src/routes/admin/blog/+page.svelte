@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { extractTextWithoutImg } from '$lib/content';
 	import { formatDate } from '$lib/helper/date';
 	import { Badge, Button, Menu, ThemeIcon } from '@svelteuidev/core';
@@ -9,7 +10,7 @@
 
 <div class="flex justify-between mb-4">
 	<h1 class="text-xl text-slate-700 font-bold">List Post</h1>
-	<Button>+ Add new post</Button>
+	<Button on:click={() => goto("/admin/blog/create")}>+ Add new post</Button>
 </div>
 <div class="rounded-md bg-white p-3 lg:p-5 text-black overflow-x-auto">
 	<table width="100%">

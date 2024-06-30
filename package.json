@@ -52,6 +52,7 @@
     "@prisma/client": "^5.15.0",
     "@svelteuidev/composables": "^0.15.6",
     "@svelteuidev/core": "^0.15.6",
+    "@tinymce/tinymce-svelte": "^3.0.0",
     "radix-icons-svelte": "^1.2.1"
   },
   "prisma": {
