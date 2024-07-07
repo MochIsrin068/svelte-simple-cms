@@ -10,7 +10,7 @@
 
 <div class="flex justify-between mb-4">
 	<h1 class="text-xl text-slate-700 font-bold">List Post</h1>
-	<Button on:click={() => goto("/admin/blog/create")}>+ Add new post</Button>
+	<Button on:click={() => goto('/admin/blog/create')}>+ Add new post</Button>
 </div>
 <div class="rounded-md bg-white p-3 lg:p-5 text-black overflow-x-auto">
 	<table width="100%">
@@ -27,13 +27,17 @@
 				<tr>
 					<td class="text-center">{index + 1}</td>
 					<td>{post.title}</td>
-					<td><p class="line-clamp-3">
-						{@html typeof window !== "undefined" ? extractTextWithoutImg(post.content) : post.content}
-					</p></td>
+					<td>
+						<p class="line-clamp-3">
+							{@html typeof window !== 'undefined'
+								? extractTextWithoutImg(post.content)
+								: post.content}
+						</p>
+					</td>
 					<td><p class="line-clamp-3">{formatDate(`${post.updatedAt}`)}</p></td>
 					<td class="text-center">
 						<Badge color={!post.published ? 'red' : 'green'} variant="filled" size="xs">
-							{post.published ? "Pubished" : "Draft"}
+							{post.published ? 'Pubished' : 'Draft'}
 						</Badge>
 					</td>
 					<td class="text-center">
@@ -75,7 +79,7 @@
 		font-size: 14px;
 	}
 
-	td{
+	td {
 		color: #5e5e5e;
 	}
 

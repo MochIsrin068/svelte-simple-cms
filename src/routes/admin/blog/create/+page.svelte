@@ -2,11 +2,15 @@
 	import { Button, Input } from '@svelteuidev/core';
 	import Editor from '@tinymce/tinymce-svelte';
 	import { env } from '$env/dynamic/public';
+	import { ArrowLeft } from 'radix-icons-svelte';
 
 	let value = '';
 </script>
 
-<div class="flex justify-between mb-4">
+<div class="flex items-center mb-4 gap-3">
+	<a class="flex items-center cursor-pointer" href="/admin/blog">
+		<ArrowLeft class="text-black" size={22} />
+	</a>
 	<h1 class="text-xl text-slate-700 font-bold">Create New Blog</h1>
 </div>
 
