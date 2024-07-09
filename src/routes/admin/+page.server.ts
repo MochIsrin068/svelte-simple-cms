@@ -1,7 +1,7 @@
-import type { PageServerLoad } from "../$types";
+import type { Actions, PageServerLoad } from "../$types";
 import prisma from '$lib/prisma'
 
-export const load = (async () => {
+export const load = (async ({ cookies }) => {
     const totalBlogDraft = await prisma.post.count({
         where: {
             published: false
@@ -18,6 +18,20 @@ export const load = (async () => {
     const totalCategory = await prisma.category.count()
 
     return {
-        totalBlogDraft, totalBlogPublshed, totalCategory, totalUser
+        totalBlogDraft, 
+        totalBlogPublshed, 
+        totalCategory, 
+        totalUser,
     }
 }) satisfies PageServerLoad
+
+
+export const actions: Actions = {
+    default: async ({cookies}) => {
+        cookies.delete('jwtToken', {path: '/'})
+
+        return {
+            logout: true
+        }
+    }
+}

@@ -47,7 +47,7 @@
 							<h3 class="font-bold text-base lg:text-xl" in:fly={{ y: 20 }} out:slide>{'<BLOG.DEV/>'}</h3>
 						</a>
 						<div class="flex items-center justify-end gap-5 text-sm lg:text-base">
-							<a class="link" href="/auth/login">Login</a>
+							<a class="link" href="/auth/login">Dashboard</a>
 							<a
 								class="link"
 								href="https://www.github.com/MochIsrin068"

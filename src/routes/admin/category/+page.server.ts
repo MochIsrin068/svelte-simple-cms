@@ -4,7 +4,7 @@ import type { Actions } from './$types';
 
 export const actions: Actions = {
     // if just one action: the name is default, if more than one, default is not valid
-    add: async ({ request }: any) => {
+    add: async ({ request }) => {
         const formData = await request.formData();
         const name = formData.get('name');
 

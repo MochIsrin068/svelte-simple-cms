@@ -25,6 +25,7 @@
 		Backpack,
 		PaperPlane
 	} from 'radix-icons-svelte';
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
 	$: opened = true;
@@ -53,6 +54,13 @@
 	$: ({ classes, getStyles } = useStyles());
 
 	export let data;
+
+	// Check Is LoggitedIn
+	onMount(() => {
+		if(!data.isLoggedIn){
+			goto('/auth/login', {replaceState: true})
+		}
+	})
 
 	// @ts-ignore
 	$: currentState = $page.state.selected;
@@ -207,9 +215,12 @@
 				</a>
 
 				<Divider />
-				<a href="/auth/login">
-					<Menu.Item icon={Exit}>Logout</Menu.Item>
-				</a>
+
+				<form method="POST" action="/admin">
+					<Menu.Item icon={Exit} type="submit">Logout</Menu.Item>
+				</form>
+				<!-- <a href="/auth/login">
+				</a> -->
 			</Menu>
 		</Header>
 
