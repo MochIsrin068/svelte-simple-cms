@@ -14,16 +14,13 @@ export const load = (({ params, request, cookies }) => {
         if (err) {
             if (err.name === 'TokenExpiredError') {
                 isLoggedIn = false
-                console.log('Token sudah kedaluwarsa');
                 cookies.delete('jwtToken', {path: '/'})
             } else {
                 isLoggedIn = false
-                console.error('Token tidak valid:', err);
                 cookies.delete('jwtToken', {path: '/'})
             }
         } else {
             isLoggedIn = true
-            console.log('Payload:', decoded);
         }
     });
 
@@ -53,7 +50,7 @@ export const actions: Actions = {
                 })
             } else {
                 if (data) {
-                    const validPassword = await bcrypt.compare(password, data.password);
+                    const validPassword = await bcrypt.compareSync(password, data.password);
                     if (validPassword) {
                         const token = jwt.sign({ id: data.id, name: data.name, role: data.role, email: data.email }, env.JWT_SECRET, { expiresIn: '1h' });
 
